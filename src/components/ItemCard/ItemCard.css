@@ -1,5 +1,5 @@
 .card {
-  width: 323px;
+  width: 328px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -10,8 +10,19 @@
   top: 15px;
   list-style-type: none;
   margin: 0;
+  background-color: #ffffff;
+  color: #00000099;
+  width: 73px;
+  height: 24px;
+  border-radius: 4px;
+  padding: 2px 12px;
+  gap: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .card__image {
   width: 100%;
+  border-radius: 8px;
+  border: 1px solid #0000004d;
 }
