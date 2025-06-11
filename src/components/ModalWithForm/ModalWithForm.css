@@ -105,12 +105,12 @@
   color: #00000080;
 }
 
-.modal__label_type_radio:hover {
+.modal__label_type_radio:has(input:checked) {
   color: #000000;
 }
 
 .modal__submit {
-  background-color: #0000004d;
+  background-color: #000000;
   border: none;
   border-radius: 8px;
   color: #fff;
@@ -118,6 +118,10 @@
   width: 124px;
   height: 36px;
   margin-top: 36px;
+}
+
+.modal__submit:disabled {
+  background-color: #0000004d;
 }
 
 .modal__submit:hover {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { defaultClothingItems } from "../../utils/constants";
 import "./App.css";
 import { coordinates, APIkey } from "../../utils/constants";
 import "../../vendor/fonts.css";
@@ -14,11 +15,14 @@ function App() {
     temp: { F: 999, C: 999 },
     city: "",
   });
+
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [name, setName] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [weatherType, setWeatherType] = useState();
+  const isFormValid = name && imageUrl && weatherType;
 
   const handleCardClick = (card) => {
     setActiveModal("preview");
@@ -46,13 +50,18 @@ function App() {
     <div className="page">
       <div className="page__content">
         <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-        <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+        <Main
+          weatherData={weatherData}
+          handleCardClick={handleCardClick}
+          clothingItems={clothingItems}
+        />
       </div>
       <ModalWithForm
         title="New garment"
         buttonText="Add garment"
         activeModal={activeModal}
         onClose={closeActiveModal}
+        isButtonDisabled={!isFormValid}
       >
         <label htmlFor="name" className="modal__label">
           Name{" "}
