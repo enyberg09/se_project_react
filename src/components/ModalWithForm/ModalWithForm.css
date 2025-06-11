@@ -22,6 +22,12 @@
   margin-bottom: 24px;
 }
 
+.modal__caption {
+  padding-left: 28px;
+  padding-right: 28px;
+  margin-bottom: 12px;
+}
+
 .modal__close {
   position: absolute;
   top: 20px;
@@ -35,6 +41,11 @@
   max-width: 498px;
   box-sizing: border-box;
   width: 100%;
+  border-radius: 12px;
+}
+
+.modal__content_type_image {
+  padding: 0;
 }
 
 .modal__form {
@@ -45,6 +56,8 @@
 
 .modal__image {
   max-width: 100%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 .modal__input {
@@ -80,6 +93,13 @@
   width: 20px;
 }
 
+.modal__close.modal__close_img_btn {
+  background-image: url(../../assets/modal-close-white.svg);
+  background-color: transparent;
+  top: 24px;
+  right: 24px;
+}
+
 .modal__label_type_radio {
   margin-top: 12px;
   color: #00000080;
@@ -102,4 +122,11 @@
 
 .modal__submit:hover {
   background-color: #00000099;
+}
+
+.modal__weather {
+  padding-left: 28px;
+  padding-right: 28px;
+  margin-bottom: 32px;
+  margin-top: 12px;
 }
