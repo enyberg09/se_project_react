@@ -1,0 +1,9 @@
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

@@ -5,6 +5,7 @@ import { coordinates, APIkey } from "../../utils/constants";
 import "../../vendor/fonts.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
+import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
@@ -131,6 +132,7 @@ function App() {
         card={selectedCard}
         onClose={closeActiveModal}
       />
+      <Footer></Footer>
     </div>
   );
 }
