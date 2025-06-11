@@ -98,5 +98,12 @@ This is **Phase One** of the WTWR App. In **Phase Two**, I plan to:
 
 ---
 
+## 🚀 Deployment
+
+Check out the live app here:  
+👉 [WTWR (What to Wear) Live Site](https://enyberg09.github.io/se_project_react/)
+
+---
+
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
