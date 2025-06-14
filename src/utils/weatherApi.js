@@ -11,6 +11,9 @@ export const getWeather = ({ latitude, longitude }, APIkey) => {
 };
 
 export const filterWeatherData = (data) => {
+  if (!data || !data.main || !data.weather || !data.weather[0] || !data.sys) {
+    throw new Error("Invalid weather data received");
+  }
   const result = {};
   result.city = data.name;
   result.temp = { F: data.main.temp };

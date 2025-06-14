@@ -1,5 +1,3 @@
-# React + Vite
-
 # 👚 WTWR (What to Wear) App
 
 The **WTWR (What to Wear)** app is a responsive web application designed to help users choose what clothing to wear based on real-time weather conditions. It integrates live weather data and displays curated clothing recommendations for various temperature ranges — hot, warm, and cold.

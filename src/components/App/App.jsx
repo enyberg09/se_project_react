@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
+
 import { defaultClothingItems } from "../../utils/constants";
-import "./App.css";
 import { coordinates, APIkey } from "../../utils/constants";
+import { getWeather, filterWeatherData } from "../../utils/weatherApi";
+
+import "./App.css";
 import "../../vendor/fonts.css";
+
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
+
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
-import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -20,9 +24,9 @@ function App() {
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [name, setName] = useState();
-  const [imageUrl, setImageUrl] = useState();
-  const [weatherType, setWeatherType] = useState();
+  const [name, setName] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [weatherType, setWeatherType] = useState("");
   const isFormValid = name && imageUrl && weatherType;
 
   const handleCardClick = (card) => {
@@ -60,7 +64,7 @@ function App() {
       <ModalWithForm
         title="New garment"
         buttonText="Add garment"
-        activeModal={activeModal}
+        isOpen={activeModal === "add-garment"}
         onClose={closeActiveModal}
         isButtonDisabled={!isFormValid}
       >
