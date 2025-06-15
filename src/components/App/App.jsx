@@ -71,6 +71,7 @@ function App() {
         <label htmlFor="name" className="modal__label">
           Name{" "}
           <input
+            value={name}
             type="text"
             className="modal__input"
             id="name"
@@ -81,6 +82,7 @@ function App() {
         <label htmlFor="imageUrl" className="modal__label">
           Image{" "}
           <input
+            value={imageUrl}
             type="text"
             className="modal__input"
             id="imageUrl"
@@ -98,6 +100,7 @@ function App() {
               name="weather_type"
               value="hot"
               onChange={(e) => setWeatherType(e.target.value)}
+              checked={weatherType === "hot"}
             />{" "}
             Hot
           </label>
@@ -112,6 +115,7 @@ function App() {
               name="weather_type"
               value="warm"
               onChange={(e) => setWeatherType(e.target.value)}
+              checked={weatherType === "warm"}
             />{" "}
             Warm
           </label>
@@ -126,17 +130,18 @@ function App() {
               name="weather_type"
               value="cold"
               onChange={(e) => setWeatherType(e.target.value)}
+              checked={weatherType === "cold"}
             />{" "}
             Cold
           </label>
         </fieldset>
       </ModalWithForm>
       <ItemModal
-        activeModal={activeModal}
+        isOpen={activeModal}
         card={selectedCard}
         onClose={closeActiveModal}
       />
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }
