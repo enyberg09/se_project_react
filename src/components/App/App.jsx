@@ -25,7 +25,10 @@ function App() {
     isaDay: true,
   });
 
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState(() => {
+    const storedItems = localStorage.getItem("clothingItems");
+    return storedItems ? JSON.parse(storedItems) : defaultClothingItems;
+  });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [name, setName] = useState("");
@@ -51,18 +54,29 @@ function App() {
     setActiveModal("");
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weatherType }) => {
-    setClothingItems([{ name, link: imageUrl, weatherType }, ...clothingItems]);
+  const handleAddItemModalSubmit = ({ name, link, weatherType }) => {
+    const newId =
+      clothingItems.length > 0
+        ? Math.max(...clothingItems.map((item) => item._id)) + 1
+        : 1;
+    const newItem = { name, link, weatherType, _id: newId };
+    console.log("🧩 ADDING ITEM", newItem);
+
+    setClothingItems((prevItems) => [newItem, ...prevItems]);
     closeActiveModal();
   };
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
-        const filteredData = filterWeatherData(data);
-        setWeatherData(filteredData);
+        setWeatherData(filterWeatherData(data));
       })
       .catch(console.error);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("clothingItems", JSON.stringify(clothingItems));
+  }, [clothingItems]);
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -83,7 +97,7 @@ function App() {
           onAddItemModalSubmit={handleAddItemModalSubmit}
         />
         <ItemModal
-          isOpen={activeModal}
+          isOpen={activeModal === "preview"}
           card={selectedCard}
           onClose={closeActiveModal}
         />
