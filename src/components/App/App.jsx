@@ -1,4 +1,7 @@
+import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+
+import { v4 as uuidv4 } from "uuid";
 
 import { defaultClothingItems } from "../../utils/constants";
 import { coordinates, APIkey } from "../../utils/constants";
@@ -10,8 +13,8 @@ import "../../vendor/fonts.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-
 import ItemModal from "../ItemModal/ItemModal";
+import Profile from "../Profile/Profile";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 import AddItemModal from "../AddItemModal/AddItemModal";
@@ -55,13 +58,7 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, link, weatherType }) => {
-    const newId =
-      clothingItems.length > 0
-        ? Math.max(...clothingItems.map((item) => item._id)) + 1
-        : 1;
-    const newItem = { name, link, weatherType, _id: newId };
-    console.log("🧩 ADDING ITEM", newItem);
-
+    const newItem = { name, link, weatherType, _id: uuidv4() };
     setClothingItems((prevItems) => [newItem, ...prevItems]);
     closeActiveModal();
   };
@@ -85,11 +82,27 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-          <Main
-            weatherData={weatherData}
-            handleCardClick={handleCardClick}
-            clothingItems={clothingItems}
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  handleCardClick={handleCardClick}
+                  clothingItems={clothingItems}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  clothingItems={clothingItems}
+                  handleCardClick={handleCardClick}
+                />
+              }
+            />
+          </Routes>
         </div>
         <AddItemModal
           isOpen={activeModal === "add-garment"}
