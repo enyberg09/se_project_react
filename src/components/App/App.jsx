@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { getItems } from "../../utils/api";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -63,6 +64,12 @@ function App() {
     closeActiveModal();
   };
 
+  const handleDeleteClick = (id) => {
+    const updatedItems = clothingItems.filter((item) => item._id !== id);
+    setClothingItems(updatedItems);
+    closeActiveModal();
+  };
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -70,6 +77,16 @@ function App() {
       })
       .catch(console.error);
   }, []);
+
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        // set the clothing items
+      })
+      .catch(console.error);
+  }, []);
+  // data on 77 snf 78 need to be rendered as cards on main and profile below in routes components
+  //
 
   useEffect(() => {
     localStorage.setItem("clothingItems", JSON.stringify(clothingItems));
@@ -98,7 +115,8 @@ function App() {
               element={
                 <Profile
                   clothingItems={clothingItems}
-                  handleCardClick={handleCardClick}
+                  onCardClick={handleCardClick}
+                  onAddClick={handleAddClick}
                 />
               }
             />
@@ -113,6 +131,7 @@ function App() {
           isOpen={activeModal === "preview"}
           card={selectedCard}
           onClose={closeActiveModal}
+          onDelete={handleDeleteClick}
         />
         <Footer />
       </div>

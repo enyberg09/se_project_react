@@ -8,8 +8,7 @@ function WeatherCard({ weatherData }) {
 
   const filteredOptions = weatherOptions.filter((option) => {
     return (
-      option.day === weatherData.isDay &&
-      option.condition === weatherData.condition
+      option.day === weatherData.isDay && option.condition === weatherData.type
     );
   });
 
