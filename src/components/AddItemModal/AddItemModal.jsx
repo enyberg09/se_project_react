@@ -8,16 +8,16 @@ export default function AddItemModal({
   onAddItemModalSubmit,
 }) {
   const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [link, setLink] = useState("");
   const [weatherType, setWeatherType] = useState("");
-  const isFormValid = name && imageUrl && weatherType;
+  const isFormValid = name && link && weatherType;
 
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const handleImageUrlChange = (e) => {
-    setImageUrl(e.target.value);
+  const handleLinkChange = (e) => {
+    setLink(e.target.value);
   };
   const handleWeatherTypeChange = (e) => {
     setWeatherType(e.target.value);
@@ -25,9 +25,9 @@ export default function AddItemModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItemModalSubmit({ name, link: imageUrl, weatherType });
+    onAddItemModalSubmit({ name, link, weatherType });
     setName("");
-    setImageUrl("");
+    setLink("");
     setWeatherType("");
   };
 
@@ -51,15 +51,15 @@ export default function AddItemModal({
           onChange={handleNameChange}
         />
       </label>
-      <label htmlFor="imageUrl" className="modal__label">
+      <label htmlFor="link" className="modal__label">
         Image{" "}
         <input
-          value={imageUrl}
+          value={link}
           type="text"
           className="modal__input"
-          id="imageUrl"
-          placeholder="ImageUrl"
-          onChange={handleImageUrlChange}
+          id="link"
+          placeholder="Image Url"
+          onChange={handleLinkChange}
         />
       </label>
       <fieldset className="modal__radio-buttons">

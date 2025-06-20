@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getItems } from "../../utils/api";
+import { getItems, addItem, deleteItem } from "../../utils/api";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -29,17 +29,14 @@ function App() {
     isaDay: true,
   });
 
-  const [clothingItems, setClothingItems] = useState(() => {
-    const storedItems = localStorage.getItem("clothingItems");
-    return storedItems ? JSON.parse(storedItems) : defaultClothingItems;
-  });
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [link, setLink] = useState("");
   const [weatherType, setWeatherType] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const isFormValid = name && imageUrl && weatherType;
+  const isFormValid = name && link && weatherType;
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -59,15 +56,27 @@ function App() {
   };
 
   const handleAddItemModalSubmit = ({ name, link, weatherType }) => {
-    const newItem = { name, link, weatherType, _id: uuidv4() };
-    setClothingItems((prevItems) => [newItem, ...prevItems]);
-    closeActiveModal();
+    addItem({ name, weatherType, link })
+      .then((newItem) => {
+        setClothingItems((prevItems) => [newItem, ...prevItems]);
+        closeActiveModal();
+      })
+      .catch((err) => {
+        console.error("Failed to add item:", err);
+      });
   };
 
   const handleDeleteClick = (id) => {
-    const updatedItems = clothingItems.filter((item) => item._id !== id);
-    setClothingItems(updatedItems);
-    closeActiveModal();
+    deleteItem(id)
+      .then(() => {
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item._id !== id)
+        );
+        closeActiveModal();
+      })
+      .catch((err) => {
+        console.error("Failed to delete item:", err);
+      });
   };
 
   useEffect(() => {
@@ -85,10 +94,6 @@ function App() {
       })
       .catch(console.error);
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("clothingItems", JSON.stringify(clothingItems));
-  }, [clothingItems]);
 
   return (
     <CurrentTemperatureUnitContext.Provider

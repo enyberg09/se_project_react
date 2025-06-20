@@ -6,11 +6,11 @@ function getItems() {
   });
 }
 
-function addItem({ name, weatherType, imageUrl }) {
+function addItem({ name, weatherType, link }) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, weatherType, imageUrl }),
+    body: JSON.stringify({ name, weatherType, link }),
   }).then((res) => {
     return res.ok ? res.json() : Promise.reject(`Error ${res.status}`);
   });
