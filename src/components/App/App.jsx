@@ -85,8 +85,6 @@ function App() {
       })
       .catch(console.error);
   }, []);
-  // data on 77 snf 78 need to be rendered as cards on main and profile below in routes components
-  //
 
   useEffect(() => {
     localStorage.setItem("clothingItems", JSON.stringify(clothingItems));
