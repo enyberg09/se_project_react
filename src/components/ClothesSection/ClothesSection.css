@@ -1,0 +1,33 @@
+.clothes-section {
+  margin: 0;
+  max-width: 100%;
+}
+
+.clothes-section__header {
+  display: flex;
+  margin-left: 40px;
+  align-items: center;
+  margin-bottom: 0;
+  font-size: 20px;
+}
+
+.clothes-section__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.clothes-section__your-items {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.clothes-section__add-new-btn {
+  border: none;
+  color: #00000099;
+  padding: 6px 6px 1px 20px;
+  background: transparent;
+}
