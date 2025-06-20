@@ -101,12 +101,6 @@
       "name": "T-Shirt",
       "weatherType": "hot",
       "link": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
-    },
-    {
-      "name": "Hoodie",
-      "weatherType": "warm",
-      "link": "https://shop.mango.com/assets/rcs/pics/static/T8/fotos/S/87093289_35_B.jpg?imwidth=320&imdensity=1&ts=1734608065097",
-      "_id": 17
     }
   ]
 }
