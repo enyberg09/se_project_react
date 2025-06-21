@@ -26,17 +26,13 @@ function App() {
     temp: { F: 999, C: 999 },
     city: "",
     condition: "",
-    isaDay: true,
+    isDay: true,
   });
 
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [name, setName] = useState("");
-  const [link, setLink] = useState("");
-  const [weatherType, setWeatherType] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const isFormValid = name && link && weatherType;
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -84,7 +80,9 @@ function App() {
       .then((data) => {
         setWeatherData(filterWeatherData(data));
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error("Failed to get weather data:", err);
+      });
   }, []);
 
   useEffect(() => {
@@ -92,7 +90,9 @@ function App() {
       .then((data) => {
         setClothingItems(data);
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error("Failed to get items:", err);
+      });
   }, []);
 
   return (

@@ -49,17 +49,19 @@ export default function AddItemModal({
           id="name"
           placeholder="Name"
           onChange={handleNameChange}
+          required
         />
       </label>
       <label htmlFor="link" className="modal__label">
         Image{" "}
         <input
           value={link}
-          type="text"
+          type="url"
           className="modal__input"
           id="link"
           placeholder="Image Url"
           onChange={handleLinkChange}
+          required
         />
       </label>
       <fieldset className="modal__radio-buttons">
@@ -73,6 +75,7 @@ export default function AddItemModal({
             value="hot"
             onChange={handleWeatherTypeChange}
             checked={weatherType === "hot"}
+            required
           />{" "}
           Hot
         </label>
@@ -85,6 +88,7 @@ export default function AddItemModal({
             value="warm"
             onChange={handleWeatherTypeChange}
             checked={weatherType === "warm"}
+            required
           />{" "}
           Warm
         </label>
@@ -97,6 +101,7 @@ export default function AddItemModal({
             value="cold"
             onChange={handleWeatherTypeChange}
             checked={weatherType === "cold"}
+            required
           />{" "}
           Cold
         </label>
