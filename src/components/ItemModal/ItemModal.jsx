@@ -1,5 +1,3 @@
-import "./ItemModal.css";
-
 function ItemModal({ isOpen, onClose, card, onDelete }) {
   return (
     <div className={`modal ${isOpen ? "modal__opened" : ""}`}>

@@ -2,8 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getItems, addItem, deleteItem } from "../../utils/api";
 
-import { v4 as uuidv4 } from "uuid";
-
 import { defaultClothingItems } from "../../utils/constants";
 import { coordinates, APIkey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
