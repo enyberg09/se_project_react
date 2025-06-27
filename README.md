@@ -63,12 +63,13 @@ This was my **first React project**, and I ran into several learning moments:
 
 ## 🚀 Future Improvements
 
-This is **Phase One** of the WTWR App. In **Phase Two**, I plan to:
+Upon completing **Phase Two**:
+- Users can add new garments to the clothing card list
+- UI enhanced with animations and transitions
+- Persistent storage implemented for custom clothing items
+- User authentication and item saving functionality added
 
-- Allow users to **add new garments** to the clothing card list
-- Improve UI with animations and transitions
-- Add **persistent storage** for custom clothing items
-- Implement user authentication and item saving
+Remaining improvements to be completed:
 - Implement responsive design to optimize the app for mobile and tablet devices
 
 ---
