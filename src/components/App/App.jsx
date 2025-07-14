@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getItems, addItem, deleteItem } from "../../utils/api";
+import { getItems, addItem, deleteItem, createUser } from "../../utils/api";
 
 import { defaultClothingItems } from "../../utils/constants";
 import { coordinates, APIkey } from "../../utils/constants";
@@ -58,6 +58,10 @@ function App() {
       .catch((err) => {
         console.error("Failed to add item:", err);
       });
+  };
+
+  const handleRegisterModalSubmit = ({ name, avatar, email, password }) => {
+    createUser({ name, avatar, email, password }).then((newUser) => {});
   };
 
   const handleDeleteClick = (id) => {
@@ -127,6 +131,11 @@ function App() {
           isOpen={activeModal === "add-garment"}
           onClose={closeActiveModal}
           onAddItemModalSubmit={handleAddItemModalSubmit}
+        />
+        <RegisterModal
+          isOpen={activeModal === "register"}
+          onClose={closeActiveModal}
+          onRegisterModalSubmit={handleRegisterModalSubmit}
         />
         <ItemModal
           isOpen={activeModal === "preview"}
