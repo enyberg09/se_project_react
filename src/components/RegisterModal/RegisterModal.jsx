@@ -61,7 +61,7 @@ export default function RegisterModal({
         Email{" "}
         <input
           value={email}
-          type="text"
+          type="email"
           className="modal__input"
           id="email"
           placeholder="Email"

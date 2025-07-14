@@ -1,17 +1,24 @@
-const baseUrl = "http://localhost:3001";
+export const baseUrl = "http://localhost:3001";
 
 export function checkResponse(res) {
   return res.ok ? res.json() : Promise.reject(`Error ${res.status}`);
 }
 
-function getItems() {
-  return fetch(`${baseUrl}/items`).then(checkResponse);
+function getItems(token) {
+  return fetch(`${baseUrl}/items`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
 }
 
-function addItem({ name, weatherType, link }) {
+function addItem({ name, weatherType, link }, token) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({ name, weatherType, link }),
   }).then(checkResponse);
 }
@@ -24,10 +31,21 @@ function createUser({ name, avatar, email, password }) {
   }).then(checkResponse);
 }
 
-function deleteItem(id) {
-  return fetch(`${baseUrl}/items/${id}`, {
-    method: "DELETE",
+function loginUser({ email, password }) {
+  return fetch(`${baseUrl}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
   }).then(checkResponse);
 }
 
-export { getItems, addItem, deleteItem, createUser };
+function deleteItem(id, token) {
+  return fetch(`${baseUrl}/items/${id}`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
+export { getItems, addItem, deleteItem, createUser, loginUser };

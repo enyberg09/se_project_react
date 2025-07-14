@@ -7,7 +7,12 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.svg";
 
-function Header({ handleAddClick, handleRegisterClick, weatherData }) {
+function Header({
+  handleAddClick,
+  handleRegisterClick,
+  handleLoginClick,
+  weatherData,
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -34,12 +39,18 @@ function Header({ handleAddClick, handleRegisterClick, weatherData }) {
         <button
           onClick={handleRegisterClick}
           type="button"
-          className="headerregister-btn"
+          className="header__register-btn"
         >
           Sign Up
         </button>
+        <button
+          onClick={handleLoginClick}
+          type="button"
+          className="header__login-btn"
+        >
+          Login
+        </button>
       </div>
-
       <Link to="/profile" className="header__link">
         <div className="header__user-container">
           <p className="header__username">Terrence Tegegne</p>

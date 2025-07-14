@@ -1,6 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getItems, addItem, deleteItem, createUser } from "../../utils/api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  createUser,
+  loginUser,
+} from "../../utils/api";
+import { checkToken } from "../../utils/auth";
 
 import { defaultClothingItems } from "../../utils/constants";
 import { coordinates, APIkey } from "../../utils/constants";
@@ -18,6 +25,7 @@ import Profile from "../Profile/Profile";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -32,6 +40,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -54,8 +63,13 @@ function App() {
     setActiveModal("register");
   };
 
+  const handleLoginClick = () => {
+    setActiveModal("login");
+  };
+
   const handleAddItemModalSubmit = ({ name, link, weatherType }) => {
-    addItem({ name, weatherType, link })
+    const token = localStorage.getItem("token");
+    addItem({ name, weatherType, link }, token)
       .then((newItem) => {
         setClothingItems((prevItems) => [newItem, ...prevItems]);
         closeActiveModal();
@@ -66,11 +80,32 @@ function App() {
   };
 
   const handleRegisterModalSubmit = ({ name, avatar, email, password }) => {
-    createUser({ name, avatar, email, password }).then((newUser) => {});
+    createUser({ name, avatar, email, password })
+      .then((newUser) => {
+        closeActiveModal();
+        localStorage.setItem("token", newUser.token);
+        setCurrentUser(newUser);
+      })
+      .catch((err) => {
+        console.error("Failed to register new user", err);
+      });
+  };
+
+  const handleLoginModalSubmit = ({ email, password }) => {
+    loginUser({ email, password })
+      .then((user) => {
+        closeActiveModal();
+        localStorage.setItem("token", user.token);
+        setCurrentUser(user);
+      })
+      .catch((err) => {
+        console.error("Failed to login", err);
+      });
   };
 
   const handleDeleteClick = (id) => {
-    deleteItem(id)
+    const token = localStorage.getItem("token");
+    deleteItem(id, token)
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== id)
@@ -83,22 +118,30 @@ function App() {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      checkToken(token)
+        .then((user) => {
+          setCurrentUser(user);
+          return getItems(token);
+        })
+        .then((data) => {
+          setClothingItems(data);
+        })
+        .catch((err) => {
+          console.error("Token validation failed:", err);
+          localStorage.removeItem("token");
+        });
+    }
+  }, []);
+
+  useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
         setWeatherData(filterWeatherData(data));
       })
       .catch((err) => {
         console.error("Failed to get weather data:", err);
-      });
-  }, []);
-
-  useEffect(() => {
-    getItems()
-      .then((data) => {
-        setClothingItems(data);
-      })
-      .catch((err) => {
-        console.error("Failed to get items:", err);
       });
   }, []);
 
@@ -112,6 +155,7 @@ function App() {
             handleAddClick={handleAddClick}
             weatherData={weatherData}
             handleRegisterClick={handleRegisterClick}
+            handleLoginClick={handleLoginClick}
           />
           <Routes>
             <Route
@@ -145,6 +189,11 @@ function App() {
           isOpen={activeModal === "register"}
           onClose={closeActiveModal}
           onRegisterModalSubmit={handleRegisterModalSubmit}
+        />
+        <LoginModal
+          isOpen={activeModal === "login"}
+          onClose={closeActiveModal}
+          onLoginModalSubmit={handleLoginModalSubmit}
         />
         <ItemModal
           isOpen={activeModal === "preview"}
