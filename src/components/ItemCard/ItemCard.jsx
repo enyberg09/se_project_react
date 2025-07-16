@@ -17,7 +17,7 @@ function ItemCard({ item, onCardClick, onCardLike, currentUser }) {
       <img
         onClick={handleCardClick}
         className="card__image"
-        src={item.link}
+        src={item.imageUrl}
         alt={item.name}
       />
       {currentUser && (
@@ -25,7 +25,7 @@ function ItemCard({ item, onCardClick, onCardLike, currentUser }) {
           className={`card__like-btn ${isLiked ? "card__like-btn_liked" : ""}`}
           onClick={handleLikeClick}
         >
-          {isLiked ? "Unlike" : "Like"}
+          {isLiked ? "♥" : "♡"}
         </button>
       )}
     </li>

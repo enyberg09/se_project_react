@@ -6,7 +6,6 @@ import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.svg";
 
 import CurrentUserContext from "../../contexts/CurrentUser";
 
@@ -43,11 +42,10 @@ function Header({
   return (
     <header className="header">
       <Link to="/">
-        {" "}
         <img className="header__logo" src={logo} alt="Header logo" />
       </Link>
       <p className="header__date-and-location">
-        {currentDate}, {weatherData.city}
+        {currentDate}, {weatherData?.city || "Loading..."}
       </p>
 
       <div className="header__right-section">

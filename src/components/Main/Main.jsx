@@ -23,7 +23,7 @@ function Main({
         </p>
         <ul className="cards__list">
           {clothingItems
-            .filter((item) => item.weatherType === weatherData.type)
+            .filter((item) => item.weather === weatherData.type)
             .map((filteredItem) => {
               return (
                 <ItemCard

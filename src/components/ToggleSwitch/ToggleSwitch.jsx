@@ -7,10 +7,14 @@ export default function ToggleSwitch() {
     CurrentTemperatureUnitContext
   );
 
+  const isCelsius = currentTemperatureUnit === "C";
+  const isFahrenheit = currentTemperatureUnit === "F";
+
   return (
     <label className="toggle-switch">
       <input
         onChange={handleToggleSwitchChange}
+        checked={isCelsius}
         type="checkbox"
         className="toggle-switch__checkbox"
       />

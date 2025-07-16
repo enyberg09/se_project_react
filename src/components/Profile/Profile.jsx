@@ -17,6 +17,7 @@ function Profile({
         <SideBar
           onEditProfileClick={onEditProfileClick}
           onSignOut={onSignOut}
+          currentUser={currentUser}
         />
       </section>
       <section className="profile__clothes-items">

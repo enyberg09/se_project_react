@@ -43,7 +43,7 @@ function App() {
     isDay: true,
   });
 
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -150,7 +150,7 @@ function App() {
       });
   };
 
-  const handleAddCardLikeClick = ({ id }) => {
+  const handleAddCardLikeClick = ({ id, isLiked }) => {
     const token = localStorage.getItem("token");
     const card = clothingItems.find((item) => item._id === id);
     const isLiked = card.likes.some((likeId) => likeId === currentUser._id);
