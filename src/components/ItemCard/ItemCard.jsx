@@ -25,7 +25,7 @@ function ItemCard({ item, onCardClick, onCardLike, currentUser }) {
           className={`card__like-btn ${isLiked ? "card__like-btn_liked" : ""}`}
           onClick={handleLikeClick}
         >
-          ❤️
+          {isLiked ? "Unlike" : "Like"}
         </button>
       )}
     </li>

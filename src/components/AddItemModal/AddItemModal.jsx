@@ -7,26 +7,27 @@ export default function AddItemModal({
   onAddItemModalSubmit,
 }) {
   const [name, setName] = useState("");
-  const [link, setLink] = useState("");
   const [weatherType, setWeatherType] = useState("");
-  const isFormValid = name && link && weatherType;
+  const [imageUrl, setImageUrl] = useState("");
+  const isFormValid = name && imageUrl && weatherType;
 
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const handleLinkChange = (e) => {
-    setLink(e.target.value);
-  };
   const handleWeatherTypeChange = (e) => {
     setWeatherType(e.target.value);
   };
 
+  const handleImageUrlChange = (e) => {
+    setImageUrl(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItemModalSubmit({ name, link, weatherType });
+    onAddItemModalSubmit({ name, imageUrl, weatherType });
     setName("");
-    setLink("");
+    setImageUrl("");
     setWeatherType("");
   };
 
@@ -51,15 +52,15 @@ export default function AddItemModal({
           required
         />
       </label>
-      <label htmlFor="link" className="modal__label">
+      <label htmlFor="imageUrl" className="modal__label">
         Image{" "}
         <input
-          value={link}
+          value={imageUrl}
           type="url"
           className="modal__input"
           id="link"
           placeholder="Image Url"
-          onChange={handleLinkChange}
+          onChange={handleImageUrlChange}
           required
         />
       </label>

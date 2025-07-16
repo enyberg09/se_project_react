@@ -9,6 +9,7 @@ import {
   createUser,
   loginUser,
   editUser,
+  getUser,
 } from "../../utils/api";
 import { checkToken } from "../../utils/auth";
 
@@ -74,9 +75,10 @@ function App() {
     setActiveModal("login");
   };
 
-  const handleAddItemModalSubmit = ({ name, link, weatherType }) => {
+  const handleAddItemModalSubmit = ({ name, imageUrl, weatherType }) => {
     const token = localStorage.getItem("token");
-    addItem({ name, weatherType, link }, token)
+    console.log("Sending item:", { name, imageUrl, weatherType });
+    addItem({ name, weather: weatherType, imageUrl }, token)
       .then((newItem) => {
         setClothingItems((prevItems) => [newItem, ...prevItems]);
         closeActiveModal();
@@ -148,17 +150,25 @@ function App() {
       });
   };
 
-  const handleAddCardLikeClick = ({ id, isLiked }) => {
+  const handleAddCardLikeClick = ({ id }) => {
     const token = localStorage.getItem("token");
+    const card = clothingItems.find((item) => item._id === id);
+    const isLiked = card.likes.some((likeId) => likeId === currentUser._id);
     if (!isLiked) {
-      addCardLike(id, token).then((updatedItem) => {
-        setClothingItems((items) =>
-          items.map((item) =>
-            item._id === updatedItem._id ? updatedItem : item
-          )
-        );
-      });
+      console.log("Liking item:", id);
+      addCardLike(id, token)
+        .then((updatedItem) => {
+          setClothingItems((items) =>
+            items.map((item) =>
+              item._id === updatedItem._id ? updatedItem : item
+            )
+          );
+        })
+        .catch((err) => {
+          console.error("Failed to like item:", err);
+        });
     } else {
+      console.log("Unliking item:", id);
       deleteCardLike(id, token)
         .then((updatedItem) => {
           setClothingItems((items) =>
@@ -167,14 +177,16 @@ function App() {
             )
           );
         })
-        .catch((err) => console.error("Failed to like item", err));
+        .catch((err) => {
+          console.error("Failed to unlike item:", err);
+        });
     }
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      checkToken(token)
+      getUser(token)
         .then((user) => {
           setCurrentUser(user);
           setIsLoggedIn(true);

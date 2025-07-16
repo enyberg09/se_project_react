@@ -12,20 +12,20 @@ function getItems(token) {
   }).then(checkResponse);
 }
 
-function addItem({ name, weatherType, link }, token) {
+function addItem({ name, weather, imageUrl }, token) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ name, weatherType, link }),
+    body: JSON.stringify({ name, weather, imageUrl }),
   }).then(checkResponse);
 }
 
 function addCardLike(itemId, token) {
   return fetch(`${baseUrl}/items/${itemId}/likes`, {
-    method: "POST",
+    method: "PUT",
     headers: {
       authorization: `Bearer ${token}`,
     },
@@ -48,9 +48,19 @@ function loginUser({ email, password }) {
   }).then(checkResponse);
 }
 
+function getUser(token) {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
 function editUser({ name, avatar }, token) {
   return fetch(`${baseUrl}/users/me`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
@@ -86,4 +96,5 @@ export {
   createUser,
   loginUser,
   editUser,
+  getUser,
 };
