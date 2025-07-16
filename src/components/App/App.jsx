@@ -128,6 +128,12 @@ function App() {
     setActiveModal("edit-profile");
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+  };
+
   const handleDeleteClick = (id) => {
     const token = localStorage.getItem("token");
     deleteItem(id, token)
@@ -233,6 +239,7 @@ function App() {
                     onEditProfileClick={handleEditProfileClick}
                     onCardLike={handleAddCardLikeClick}
                     currentUser={currentUser}
+                    onSignOut={handleSignOut}
                   />
                 }
               />
