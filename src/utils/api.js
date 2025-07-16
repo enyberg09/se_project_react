@@ -23,8 +23,17 @@ function addItem({ name, weatherType, link }, token) {
   }).then(checkResponse);
 }
 
+function addCardLike(itemId, token) {
+  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
 function createUser({ name, avatar, email, password }) {
-  return fetch(`${baseUrl}/register`, {
+  return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, avatar, email, password }),
@@ -40,7 +49,7 @@ function loginUser({ email, password }) {
 }
 
 function editUser({ name, avatar }, token) {
-  return fetch(`${baseUrl}/editprofile`, {
+  return fetch(`${baseUrl}/users/me`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -59,4 +68,22 @@ function deleteItem(id, token) {
   }).then(checkResponse);
 }
 
-export { getItems, addItem, deleteItem, createUser, loginUser, editUser };
+function deleteCardLike(itemId, token) {
+  return fetch(`${baseUrl}/items/${itemId}/likes`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then(checkResponse);
+}
+
+export {
+  getItems,
+  addItem,
+  addCardLike,
+  deleteItem,
+  deleteCardLike,
+  createUser,
+  loginUser,
+  editUser,
+};

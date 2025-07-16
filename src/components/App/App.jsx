@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import {
   getItems,
   addItem,
+  addCardLike,
   deleteItem,
+  deleteCardLike,
   createUser,
   loginUser,
   editUser,
@@ -98,7 +100,6 @@ function App() {
   };
 
   const handleLoginModalSubmit = ({ email, password }) => {
-    const token = localStorage.getItem("token");
     loginUser({ email, password })
       .then((user) => {
         closeActiveModal();
@@ -139,6 +140,29 @@ function App() {
       .catch((err) => {
         console.error("Failed to delete item:", err);
       });
+  };
+
+  const handleAddCardLikeClick = ({ id, isLiked }) => {
+    const token = localStorage.getItem("token");
+    if (!isLiked) {
+      addCardLike(id, token).then((updatedItem) => {
+        setClothingItems((items) =>
+          items.map((item) =>
+            item._id === updatedItem._id ? updatedItem : item
+          )
+        );
+      });
+    } else {
+      deleteCardLike(id, token)
+        .then((updatedItem) => {
+          setClothingItems((items) =>
+            items.map((item) =>
+              item._id === updatedItem._id ? updatedItem : item
+            )
+          );
+        })
+        .catch((err) => console.error("Failed to like item", err));
+    }
   };
 
   useEffect(() => {
@@ -194,6 +218,8 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleAddCardLikeClick}
+                    currentUser={currentUser}
                   />
                 }
               />
@@ -205,6 +231,8 @@ function App() {
                     onCardClick={handleCardClick}
                     onAddClick={handleAddClick}
                     onEditProfileClick={handleEditProfileClick}
+                    onCardLike={handleAddCardLikeClick}
+                    currentUser={currentUser}
                   />
                 }
               />
