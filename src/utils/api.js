@@ -39,6 +39,17 @@ function loginUser({ email, password }) {
   }).then(checkResponse);
 }
 
+function editUser({ name, avatar }, token) {
+  return fetch(`${baseUrl}/editprofile`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  }).then(checkResponse);
+}
+
 function deleteItem(id, token) {
   return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
@@ -48,4 +59,4 @@ function deleteItem(id, token) {
   }).then(checkResponse);
 }
 
-export { getItems, addItem, deleteItem, createUser, loginUser };
+export { getItems, addItem, deleteItem, createUser, loginUser, editUser };

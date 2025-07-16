@@ -23,12 +23,14 @@ function ClothesSection({ clothingItems, onCardClick, onAddClick }) {
       </div>
       <ul className="clothes-section__items">
         {myItems.map((item) => {
-          <ItemCard
-            key={item._id}
-            item={item}
-            onCardClick={onCardClick}
-            onAddClick={onAddClick}
-          />;
+          return (
+            <ItemCard
+              key={item._id}
+              item={item}
+              onCardClick={onCardClick}
+              onAddClick={onAddClick}
+            />
+          );
         })}
       </ul>
     </div>

@@ -6,6 +6,7 @@ import {
   deleteItem,
   createUser,
   loginUser,
+  editUser,
 } from "../../utils/api";
 import { checkToken } from "../../utils/auth";
 
@@ -21,12 +22,14 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
+import SideBar from "../SideBar/SideBar";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 import CurrentUserContext from "../../contexts/CurrentUser";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
+import EditProfileModal from "../EditProfileModal/EditProfile";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -95,6 +98,7 @@ function App() {
   };
 
   const handleLoginModalSubmit = ({ email, password }) => {
+    const token = localStorage.getItem("token");
     loginUser({ email, password })
       .then((user) => {
         closeActiveModal();
@@ -105,6 +109,22 @@ function App() {
       .catch((err) => {
         console.error("Failed to login", err);
       });
+  };
+
+  const handleEditProfileModalSubmit = ({ name, avatar }) => {
+    const token = localStorage.getItem("token");
+    editUser({ name, avatar }, token)
+      .then((user) => {
+        setCurrentUser(user);
+        closeActiveModal();
+      })
+      .catch((err) => {
+        console.error("Failed to edit user", err);
+      });
+  };
+
+  const handleEditProfileClick = () => {
+    setActiveModal("edit-profile");
   };
 
   const handleDeleteClick = (id) => {
@@ -184,6 +204,7 @@ function App() {
                     clothingItems={clothingItems}
                     onCardClick={handleCardClick}
                     onAddClick={handleAddClick}
+                    onEditProfileClick={handleEditProfileClick}
                   />
                 }
               />
@@ -203,6 +224,11 @@ function App() {
             isOpen={activeModal === "login"}
             onClose={closeActiveModal}
             onLoginModalSubmit={handleLoginModalSubmit}
+          />
+          <EditProfileModal
+            isOpen={activeModal === "edit-profile"}
+            onClose={closeActiveModal}
+            onUpdateUser={handleEditProfileModalSubmit}
           />
           <ItemModal
             isOpen={activeModal === "preview"}
