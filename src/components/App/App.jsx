@@ -150,7 +150,7 @@ function App() {
       });
   };
 
-  const handleAddCardLikeClick = ({ id, isLiked }) => {
+  const handleAddCardLikeClick = ({ id }) => {
     const token = localStorage.getItem("token");
     const card = clothingItems.find((item) => item._id === id);
     const isLiked = card.likes.some((likeId) => likeId === currentUser._id);

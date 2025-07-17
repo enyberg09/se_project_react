@@ -5,6 +5,12 @@
   padding: 32px 0 28px;
 }
 
+.header__avatar {
+  width: 40px;
+  left: 40px;
+  border-radius: 50%;
+}
+
 .header__right-section {
   display: flex;
   align-items: center;
