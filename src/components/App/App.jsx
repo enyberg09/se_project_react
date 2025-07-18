@@ -45,9 +45,9 @@ function App() {
 
   const [clothingItems, setClothingItems] = useState([]);
   const [activeModal, setActiveModal] = useState("");
-  const [selectedCard, setSelectedCard] = useState({});
+  const [selectedCard, setSelectedCard] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleToggleSwitchChange = () => {
@@ -80,7 +80,6 @@ function App() {
     console.log("Sending item:", { name, imageUrl, weatherType });
     addItem({ name, weather: weatherType, imageUrl }, token)
       .then((newItem) => {
-        F;
         console.log("New Item", newItem);
         setClothingItems((prevItems) => [newItem.data, ...prevItems]);
         closeActiveModal();
@@ -118,7 +117,7 @@ function App() {
 
   const handleEditProfileModalSubmit = ({ name, avatar }) => {
     const token = localStorage.getItem("token");
-    editUser({ name, avatar }, token)
+    return editUser({ name, avatar }, token)
       .then((user) => {
         setCurrentUser(user);
         closeActiveModal();

@@ -1,6 +1,6 @@
-# 👚 WTWR (What to Wear) App
+# 👚 WTWR: Weather-Based Wardrobe App (React + Express)
 
-The **WTWR (What to Wear)** app is a responsive web application designed to help users choose what clothing to wear based on real-time weather conditions. It integrates live weather data and displays curated clothing recommendations for various temperature ranges — hot, warm, and cold.
+The **WTWR (What to Wear)** app is a is a full-stack weather-based wardrobe app built with **React**, allowing users to view, add, and manage clothing items based on real-time weather data. It features user authentication, profile management, and CRUD functionality for wardrobe items, integrated with weather data from the OpenWeather API.
 
 ---
 
@@ -51,25 +51,44 @@ This React-based app fetches weather data from the **OpenWeather API** and:
 
 ---
 
+## 🔐 Authentication & Backend
+
+This app connects to the **Project 13 Express backend** (`se_project_express`) which handles:
+
+- JWT-based user authentication (signup, login, logout)
+- MongoDB for storing user profiles and clothing items
+- RESTful API routes for protected data access
+
+### 🔐 API Endpoints Implemented
+
+- **Auth**: `POST /signup`, `POST /signin`
+- **User**: `GET /users/me`, `PATCH /users/me`
+- **Items**: `GET /items`, `POST /items`, `DELETE /items/:itemId`
+- **Likes**: `PUT /items/:itemId/likes`, `DELETE /items/:itemId/likes`
+
+---
+
+### 🔐 Protected Routing
+
+- Utilized **React Router** for page navigation
+- Certain routes are protected using JWT token validation
+- Used React Router to navigate between pages, and kept some pages secure using user login tokens
+
+---
+
 ## 🧠 Challenges Solved
 
-This was my **first React project**, and I ran into several learning moments:
-
-- When building the **radio buttons**, all buttons were staying selected — I realized I had missed the `onChange` handler.
-- Once that was added, I then worked to implement **form validation** by disabling the "Add Garment" button until required fields were filled.
-- Through trial and error, I successfully resolved both issues and gained confidence using controlled inputs and state management in React.
+- When calling the `addItem()` API, the resolved value (`newItem`) returned the entire response object, not just the item data.
+- Initially, using `setClothingItems(prev => [newItem, ...prev])` added the whole response object—including the `data` wrapper—into the items array, which caused rendering issues.
+- The solution was to use `newItem.data` to extract the actual clothing item object. This ensured the new item matched the shape of existing items in state, allowing React to render it properly.
 
 ---
 
 ## 🚀 Future Improvements
 
-Upon completing **Phase Two**:
-- Users can add new garments to the clothing card list
-- UI enhanced with animations and transitions
-- Persistent storage implemented for custom clothing items
-- User authentication and item saving functionality added
-
+Upon completing **Phase Three**:
 Remaining improvements to be completed:
+
 - Implement responsive design to optimize the app for mobile and tablet devices
 
 ---
@@ -80,6 +99,16 @@ Remaining improvements to be completed:
 - **JavaScript (ES6+)**
 - **CSS Modules**
 - **OpenWeather API**
+- Used **React Context API** to manage current user and temperature unit state globally
+
+---
+
+### 👚 Clothing Item Management
+
+- Add new clothing items with images and weather tags
+- View all available items
+- Delete your own items
+- Like/unlike items from all users
 
 ---
 
@@ -97,10 +126,21 @@ Remaining improvements to be completed:
 
 ---
 
+## ⚙️ How to Run Locally
+
+1. Clone this repo and the backend repo (`se_project_express`).
+2. Install dependencies with `npm install`.
+3. Start backend server (`npm start` in backend folder).
+4. Start frontend with `npm run dev` (uses Vite).
+5. Open the app in your browser at `http://localhost:3000`.
+
+---
+
 ## 🚀 Deployment
 
 Check out the live app here:  
-👉 [WTWR (What to Wear) Live Site](https://enyberg09.github.io/se_project_react/)
+👉 Frontend: [WTWR (What to Wear) Live Site](https://enyberg09.github.io/se_project_react/)
+Backend: (Runs locally at `http://localhost:3001` or deployed backend link if applicable)
 
 ---
 

@@ -1,0 +1,17 @@
+.modal__edit-name {
+  border: none;
+  border-bottom: 1px solid #000000;
+  border-width: 1px;
+  width: 440px;
+  height: 52px;
+  margin-bottom: 24px;
+}
+
+.modal__edit-avatar-url {
+  border: none;
+  border-bottom: 1px solid #000000;
+  border-width: 1px;
+  width: 440px;
+  height: 52px;
+  margin-bottom: 24px;
+}

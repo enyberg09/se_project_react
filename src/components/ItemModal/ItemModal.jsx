@@ -4,8 +4,11 @@ import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmati
 
 function ItemModal({ isOpen, onClose, card, onDelete }) {
   const currentUser = useContext(CurrentUserContext);
-  const isOwn = card.owner === currentUser?._id;
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+
+  if (!card) return null;
+
+  const isOwn = card.owner === currentUser?._id;
 
   const handleDeleteConfirm = () => {
     onDelete(card._id);
@@ -28,7 +31,10 @@ function ItemModal({ isOpen, onClose, card, onDelete }) {
             {isOwn && (
               <button
                 className="modal__delete-btn"
-                onClick={() => setIsDeleteConfirmOpen(true)}
+                onClick={() => {
+                  onClose();
+                  setIsDeleteConfirmOpen(true);
+                }}
               >
                 Delete
               </button>

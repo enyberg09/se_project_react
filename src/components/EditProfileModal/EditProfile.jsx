@@ -1,3 +1,5 @@
+import "./EditProfile.css";
+
 import React, { useState, useContext, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import CurrentUserContext from "../../contexts/CurrentUser";
@@ -19,7 +21,7 @@ function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    onUpdateUser({ name, avatar }).finally(() => {
+    return onUpdateUser({ name, avatar }).finally(() => {
       setIsSubmitting(false);
     });
   };
@@ -35,6 +37,7 @@ function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
       <label className="modal__label">
         Name
         <input
+          className="modal__edit-name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -46,6 +49,7 @@ function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
       <label className="modal__label">
         Avatar URL
         <input
+          className="modal__edit-avatar-url"
           type="url"
           value={avatar}
           onChange={(e) => setAvatar(e.target.value)}
