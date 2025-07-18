@@ -30,39 +30,24 @@
   height: 325px;
 }
 
-.card__like-button {
-  background-image: url(../../assets/❤.svg);
-  height: 20px;
-  width: 23px;
+.card__like-btn {
+  background-image: url(../../assets/like-heart.svg);
+  height: 18px;
+  width: 15px;
   border: none;
-  background-color: #fcf5e5;
+  background-color: transparent;
   opacity: 0.4;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  position: absolute;
+  margin: 20px 111px 194px 250px;
 }
-.card__like-btn_active {
-  background-image: url(../images/heart-red-liked.svg);
+.card__like-btn_liked {
+  background-image: url(../../assets/liked-heart.svg);
   opacity: 1;
 }
 .card__like-btn:hover {
   opacity: 1;
   cursor: pointer;
-}
-.card__like-btn_active:hover {
-  background-image: url(../images/heart-red-hover.svg);
-}
-.card__delete-button {
-  background-image: url(../images/default-trash-grey.svg);
-  height: 32px;
-  width: 32px;
-  border: none;
-  background-color: transparent;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-.card__delete-button:hover {
-  cursor: pointer;
-  background-image: url(../images/delete-hover-trash-red.svg);
 }

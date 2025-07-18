@@ -68,6 +68,8 @@
   top: -87px;
   margin: 0;
   left: 400px;
+  border: none;
+  background-color: transparent;
 }
 
 .modal__form {

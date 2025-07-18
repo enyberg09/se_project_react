@@ -8,6 +8,7 @@ function ItemCard({ item, onCardClick, onCardLike, currentUser }) {
   const isLiked = item.likes?.includes(currentUser?._id);
 
   const handleLikeClick = () => {
+    if (!currentUser) return;
     onCardLike({ id: item._id, isLiked });
   };
 
@@ -25,7 +26,7 @@ function ItemCard({ item, onCardClick, onCardLike, currentUser }) {
           className={`card__like-btn ${isLiked ? "card__like-btn_liked" : ""}`}
           onClick={handleLikeClick}
         >
-          {isLiked ? "♥" : "♡"}
+          {isLiked ? "" : ""}
         </button>
       )}
     </li>

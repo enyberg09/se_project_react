@@ -1,0 +1,38 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__text {
+  text-align: center;
+  margin: 151px 60px 152px 40px;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 20px;
+}
+
+.modal__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.modal__btn {
+  border: none;
+  background-color: transparent;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  color: #ff4d00;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+.modal__btn_cancel {
+  border: none;
+  background-color: transparent;
+  color: #000;
+}

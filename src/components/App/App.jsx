@@ -80,7 +80,9 @@ function App() {
     console.log("Sending item:", { name, imageUrl, weatherType });
     addItem({ name, weather: weatherType, imageUrl }, token)
       .then((newItem) => {
-        setClothingItems((prevItems) => [newItem, ...prevItems]);
+        F;
+        console.log("New Item", newItem);
+        setClothingItems((prevItems) => [newItem.data, ...prevItems]);
         closeActiveModal();
       })
       .catch((err) => {
@@ -150,17 +152,16 @@ function App() {
       });
   };
 
-  const handleAddCardLikeClick = ({ id }) => {
+  const handleAddCardLikeClick = ({ id, isLiked }) => {
     const token = localStorage.getItem("token");
-    const card = clothingItems.find((item) => item._id === id);
-    const isLiked = card.likes.some((likeId) => likeId === currentUser._id);
+
     if (!isLiked) {
       console.log("Liking item:", id);
       addCardLike(id, token)
         .then((updatedItem) => {
           setClothingItems((items) =>
             items.map((item) =>
-              item._id === updatedItem._id ? updatedItem : item
+              item._id === updatedItem.data._id ? updatedItem.data : item
             )
           );
         })
@@ -173,7 +174,7 @@ function App() {
         .then((updatedItem) => {
           setClothingItems((items) =>
             items.map((item) =>
-              item._id === updatedItem._id ? updatedItem : item
+              item._id === updatedItem.data._id ? updatedItem.data : item
             )
           );
         })
