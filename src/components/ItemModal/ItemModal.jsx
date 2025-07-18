@@ -1,3 +1,5 @@
+import "./ItemModal.css";
+
 import { useContext, useState } from "react";
 import CurrentUserContext from "../../contexts/CurrentUser";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal";
