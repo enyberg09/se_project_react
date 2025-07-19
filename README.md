@@ -140,7 +140,7 @@ Remaining improvements to be completed:
 
 Check out the live app here:  
 👉 Frontend: [WTWR (What to Wear) Live Site](https://enyberg09.github.io/se_project_react/)
-Backend: (Runs locally at `http://localhost:3001` or deployed backend link if applicable)
+Backend: (https://github.com/enyberg09/se_project_express.git)
 
 ---
 
