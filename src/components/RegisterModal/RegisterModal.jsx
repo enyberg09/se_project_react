@@ -45,49 +45,49 @@ export default function RegisterModal({
       isButtonDisabled={!isFormValid}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="name" className="modal__label">
+      <label htmlFor="register-name" className="modal__label">
         Name{" "}
         <input
           value={name}
           type="text"
           className="modal__input"
-          id="name"
+          id="register-name"
           placeholder="Name"
           onChange={handleNameChange}
           required
         />
       </label>
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="register-email" className="modal__label">
         Email{" "}
         <input
           value={email}
           type="email"
           className="modal__input"
-          id="email"
+          id="register-email"
           placeholder="Email"
           onChange={handleEmailChange}
           required
         />
       </label>
-      <label htmlFor="avatar" className="modal__label">
+      <label htmlFor="register-avatar" className="modal__label">
         Avatar{" "}
         <input
           value={avatar}
           type="url"
           className="modal__input"
-          id="avatar"
+          id="register-avatar"
           placeholder="Avatar URL"
           onChange={handleAvatarChange}
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="register-password" className="modal__label">
         Password{" "}
         <input
           value={password}
           type="password"
           className="modal__input"
-          id="password"
+          id="register-password"
           placeholder="Password"
           onChange={handlePasswordChange}
           required

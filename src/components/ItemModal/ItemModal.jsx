@@ -10,7 +10,7 @@ function ItemModal({ isOpen, onClose, card, onDelete }) {
 
   if (!card) return null;
 
-  const isOwn = card.owner === currentUser?._id;
+  const isOwn = card.owner === currentUser?.currentUser?._id;
 
   const handleDeleteConfirm = () => {
     onDelete(card._id);

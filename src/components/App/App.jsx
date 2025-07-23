@@ -6,14 +6,10 @@ import {
   addCardLike,
   deleteItem,
   deleteCardLike,
-  createUser,
-  loginUser,
   editUser,
-  getUser,
 } from "../../utils/api";
-import { checkToken } from "../../utils/auth";
+import { checkToken, createUser, loginUser, getUser } from "../../utils/auth";
 
-import { defaultClothingItems } from "../../utils/constants";
 import { coordinates, APIkey } from "../../utils/constants";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 
@@ -25,7 +21,6 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
-import SideBar from "../SideBar/SideBar";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 import CurrentUserContext from "../../contexts/CurrentUser";
@@ -47,7 +42,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleToggleSwitchChange = () => {
@@ -90,11 +85,12 @@ function App() {
   };
 
   const handleRegisterModalSubmit = ({ name, avatar, email, password }) => {
+    console.log("Register submit started");
     createUser({ name, avatar, email, password })
       .then((newUser) => {
         closeActiveModal();
         localStorage.setItem("token", newUser.token);
-        setCurrentUser(newUser);
+        setCurrentUser(newUser.user);
         setIsLoggedIn(true);
       })
       .catch((err) => {
@@ -104,11 +100,17 @@ function App() {
 
   const handleLoginModalSubmit = ({ email, password }) => {
     loginUser({ email, password })
-      .then((user) => {
+      .then((userData) => {
         closeActiveModal();
-        localStorage.setItem("token", user.token);
-        setCurrentUser(user);
+        localStorage.setItem("token", userData.token);
+        setCurrentUser(userData.user);
+        console.log("Setting current user to:", userData.user);
         setIsLoggedIn(true);
+        return getItems(userData.token);
+      })
+      .then((items) => {
+        console.log("getItems returned:", items);
+        setClothingItems(items);
       })
       .catch((err) => {
         console.error("Failed to login", err);
@@ -135,6 +137,7 @@ function App() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setCurrentUser(null);
+    setClothingItems([]);
   };
 
   const handleDeleteClick = (id) => {
@@ -186,9 +189,11 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      getUser(token)
-        .then((user) => {
-          setCurrentUser(user);
+      checkToken(token)
+        .then((userData) => {
+          console.log("checkToken returned:", userData);
+
+          setCurrentUser(userData);
           setIsLoggedIn(true);
           return getItems(token);
         })
@@ -202,6 +207,8 @@ function App() {
         });
     } else {
       setIsLoggedIn(false);
+      setClothingItems([]);
+      setCurrentUser(null);
     }
   }, []);
 
@@ -219,7 +226,7 @@ function App() {
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
-      <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
         <div className="page">
           <div className="page__content">
             <Header
@@ -250,7 +257,7 @@ function App() {
                     onAddClick={handleAddClick}
                     onEditProfileClick={handleEditProfileClick}
                     onCardLike={handleAddCardLikeClick}
-                    currentUser={currentUser}
+                    currentUser={{ currentUser }}
                     onSignOut={handleSignOut}
                   />
                 }

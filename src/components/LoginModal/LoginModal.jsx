@@ -30,25 +30,25 @@ export default function LoginModal({ onClose, isOpen, onLoginModalSubmit }) {
       isButtonDisabled={!isFormValid}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email" className="modal__label">
+      <label htmlFor="login-email" className="modal__label">
         Email{" "}
         <input
           value={email}
           type="email"
           className="modal__input"
-          id="email"
+          id="login-email"
           placeholder="Email"
           onChange={handleEmailChange}
           required
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label htmlFor="login-password" className="modal__label">
         Password{" "}
         <input
           value={password}
           type="password"
           className="modal__input"
-          id="password"
+          id="login-password"
           placeholder="Password"
           onChange={handlePasswordChange}
           required
