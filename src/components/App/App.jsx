@@ -195,10 +195,6 @@ function App() {
 
           setCurrentUser(userData);
           setIsLoggedIn(true);
-          return getItems(token);
-        })
-        .then((data) => {
-          setClothingItems(data);
         })
         .catch((err) => {
           setIsLoggedIn(false);
@@ -222,6 +218,13 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    getItems()
+      .then((data) => {
+        setClothingItems(data);
+      })
+      .catch(console.error);
+  }, []);
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
