@@ -137,6 +137,13 @@
   color: #000000;
 }
 
+.modal__btn-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 36px;
+}
+
 .modal__submit {
   background-color: #000000;
   border: none;
@@ -145,7 +152,13 @@
   font-size: 16px;
   width: 124px;
   height: 36px;
-  margin-top: 36px;
+}
+
+.modal__switch-btn {
+  border: none;
+  background-color: transparent;
+  color: #00000080;
+  height: 20px;
 }
 
 .modal__submit:disabled {

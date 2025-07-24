@@ -62,6 +62,22 @@ function App() {
     setActiveModal("");
   };
 
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
+
   const handleRegisterClick = () => {
     setActiveModal("register");
   };
@@ -103,13 +119,20 @@ function App() {
       .then((userData) => {
         closeActiveModal();
         localStorage.setItem("token", userData.token);
-        setCurrentUser(userData.user);
-        console.log("Setting current user to:", userData.user);
-        setIsLoggedIn(true);
+
+        checkToken(userData.token)
+          .then((userData) => {
+            setCurrentUser(userData);
+            setIsLoggedIn(true);
+          })
+          .catch((err) => {
+            setIsLoggedIn(false);
+            console.error("Token validation failed:", err);
+            localStorage.removeItem("token");
+          });
         return getItems(userData.token);
       })
       .then((items) => {
-        console.log("getItems returned:", items);
         setClothingItems(items);
       })
       .catch((err) => {
@@ -137,6 +160,7 @@ function App() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setCurrentUser(null);
+
     setClothingItems([]);
   };
 
@@ -225,6 +249,7 @@ function App() {
       })
       .catch(console.error);
   }, []);
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -247,7 +272,6 @@ function App() {
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
                     onCardLike={handleAddCardLikeClick}
-                    currentUser={currentUser}
                   />
                 }
               />
@@ -260,7 +284,6 @@ function App() {
                     onAddClick={handleAddClick}
                     onEditProfileClick={handleEditProfileClick}
                     onCardLike={handleAddCardLikeClick}
-                    currentUser={{ currentUser }}
                     onSignOut={handleSignOut}
                   />
                 }
