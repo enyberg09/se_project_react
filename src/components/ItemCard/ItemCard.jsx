@@ -4,6 +4,7 @@ import CurrentUserContext from "../../contexts/CurrentUser";
 
 function ItemCard({ item, onCardClick, onCardLike }) {
   const { currentUser } = useContext(CurrentUserContext);
+  console.log("Individual item in card:", item);
 
   const handleCardClick = () => {
     onCardClick(item);

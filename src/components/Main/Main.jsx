@@ -7,6 +7,7 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 
 function Main({ weatherData, handleCardClick, clothingItems, onCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  console.log("All clothing items:", clothingItems);
   return (
     <main>
       <WeatherCard weatherData={weatherData} />
