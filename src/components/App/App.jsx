@@ -91,6 +91,9 @@ function App() {
     console.log("Sending item:", { name, imageUrl, weatherType });
     addItem({ name, weather: weatherType, imageUrl }, token)
       .then((newItem) => {
+        console.log("Full server response:", newItem);
+        console.log("newItem.data:", newItem.data);
+        console.log("Current user ID:", currentUser._id);
         console.log("New Item", newItem);
         setClothingItems((prevItems) => [newItem.data, ...prevItems]);
         closeActiveModal();
@@ -243,12 +246,15 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getItems()
-      .then((data) => {
-        setClothingItems(data);
-      })
-      .catch(console.error);
-  }, []);
+    if (isLoggedIn) {
+      const token = localStorage.getItem("token");
+      getItems(token)
+        .then((data) => {
+          setClothingItems(data);
+        })
+        .catch(console.error);
+    }
+  }, [isLoggedIn]);
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -270,7 +276,7 @@ function App() {
                   <Main
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
-                    clothingItems={clothingItems}
+                    clothingItems={isLoggedIn ? clothingItems : []}
                     onCardLike={handleAddCardLikeClick}
                   />
                 }
