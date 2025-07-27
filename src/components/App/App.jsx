@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   getItems,
@@ -21,6 +21,7 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit";
 import CurrentUserContext from "../../contexts/CurrentUser";
@@ -37,6 +38,8 @@ function App() {
     condition: "",
     isDay: true,
   });
+
+  const navigate = useNavigate();
 
   const [clothingItems, setClothingItems] = useState([]);
   const [activeModal, setActiveModal] = useState("");
@@ -163,8 +166,8 @@ function App() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setCurrentUser(null);
-
     setClothingItems([]);
+    navigate("/");
   };
 
   const handleDeleteClick = (id) => {
@@ -284,14 +287,16 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <Profile
-                    clothingItems={clothingItems}
-                    onCardClick={handleCardClick}
-                    onAddClick={handleAddClick}
-                    onEditProfileClick={handleEditProfileClick}
-                    onCardLike={handleAddCardLikeClick}
-                    onSignOut={handleSignOut}
-                  />
+                  <ProtectedRoute isLoggedIn={{ isLoggedIn }}>
+                    <Profile
+                      clothingItems={clothingItems}
+                      onCardClick={handleCardClick}
+                      onAddClick={handleAddClick}
+                      onEditProfileClick={handleEditProfileClick}
+                      onCardLike={handleAddCardLikeClick}
+                      onSignOut={handleSignOut}
+                    />
+                  </ProtectedRoute>
                 }
               />
             </Routes>
