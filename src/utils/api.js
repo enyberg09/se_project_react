@@ -1,4 +1,4 @@
-export const baseUrl = "http://localhost:3001";
+export const baseUrl = "https://api.wtwr.thehomeserver.net";
 
 export function checkResponse(res) {
   return res.ok ? res.json() : Promise.reject(`Error ${res.status}`);
