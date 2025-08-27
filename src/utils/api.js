@@ -1,4 +1,6 @@
-export const baseUrl = "https://api.wtwr.thehomeserver.net";
+export const baseUrl = process.env.NODE_ENV === "production" 
+  ? "https://api.wtwr.thehomeserver.net"
+  : "http://localhost:3001";
 
 export function checkResponse(res) {
   return res.ok ? res.json() : Promise.reject(`Error ${res.status}`);
